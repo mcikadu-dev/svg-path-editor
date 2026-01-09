@@ -3,7 +3,7 @@
         <button mat-raised-button class="left-column-close"
             (click)="toggleLeftPanel()"
         >
-            <mat-icon>arrow_left</mat-icon>
+            <mat-icon class="material-symbols-rounded">arrow_left</mat-icon>
         </button>
         <div class="left-column" cdk-scrollable>
             <app-expandable panelTitle="Path" [panelInfo]="rawPath.length.toString()" [opened]="true">
@@ -15,10 +15,10 @@
                             (ngModelChange)="reloadPath($event, $event.length > 0)"
                             class="app-input"
                             style="height:100px;"
-                            placeholder="Paste any SVG path here"
+                            placeholder="Tempel path SVG di sini"
                             (focus)="setHistoryDisabled(true)"
                             (blur)="setHistoryDisabled(false)"
-                            matTooltip="Invalid path"
+                            matTooltip="Path tidak valid"
                             matTooltipPosition="below"
                             matTooltipClass="app-tooltip"
                             [matTooltipDisabled]="!invalidSyntax"
@@ -33,12 +33,12 @@
                     <button mat-mini-fab
                         color="primary"
                         style="transform: none; margin:0 4px;"
-                        matTooltip="Clear path"
+                        matTooltip="Hapus path"
                         matTooltipPosition="below"
                         matTooltipClass="app-tooltip"
                         (click)="reloadPath('', false)"
                     >
-                        <mat-icon>clear</mat-icon>
+                        <mat-icon class="material-symbols-rounded">clear</mat-icon>
                     </button>
 
                     <button mat-mini-fab
@@ -46,16 +46,16 @@
                         style="transform: none; margin:0 10px 0 auto;"
                         [matMenuTriggerFor]="appCreate"
                         [matMenuTriggerData]="{item:null, idx:-1}"
-                        matTooltip="Append new command"
+                        matTooltip="Tambah perintah baru"
                         matTooltipPosition="below"
                         matTooltipClass="app-tooltip"
                     >
-                        <mat-icon>add</mat-icon>
+                        <mat-icon class="material-symbols-rounded">add</mat-icon>
                     </button>
                 </div>
             </app-expandable>
 
-            <app-expandable panelTitle="Configuration" [opened]="true">
+            <app-expandable panelTitle="Konfigurasi" [opened]="true">
                 <div class="row">
                     <div class="input-block" [ngClass]="{'disabled': cfg.viewPortLocked }">
                         <label>X</label>
@@ -78,7 +78,7 @@
                         >
                     </div>
                     <div class="input-block" [ngClass]="{'disabled': cfg.viewPortLocked }">
-                        <label>Width</label>
+                        <label>Lebar</label>
                         <input
                             class="app-input"
                             appFormatter
@@ -89,7 +89,7 @@
                         >
                     </div>
                     <div class="input-block" [ngClass]="{'disabled': cfg.viewPortLocked }">
-                        <label>Height</label>
+                        <label>Tinggi</label>
                         <input
                             class="app-input"
                             appFormatter
@@ -103,23 +103,23 @@
                     <button
                         mat-flat-button
                         (click)="cfg.viewPortLocked = !cfg.viewPortLocked"
-                        [matTooltip]="cfg.viewPortLocked ? 'Unlock viewBox' : 'Lock viewBox'"
+                        [matTooltip]="cfg.viewPortLocked ? 'Buka viewBox' : 'Kunci viewBox'"
                         matTooltipPosition="right"
                         class="mat-flat-button"
                     >
-                        <mat-icon *ngIf="!cfg.viewPortLocked">lock_open</mat-icon>
-                        <mat-icon *ngIf="cfg.viewPortLocked">lock</mat-icon>
+                        <mat-icon class="material-symbols-rounded" *ngIf="!cfg.viewPortLocked">lock_open</mat-icon>
+                        <mat-icon class="material-symbols-rounded" *ngIf="cfg.viewPortLocked">lock</mat-icon>
                     </button>
                 </div>
                 <div class="row">
-                    <mat-checkbox [(ngModel)]="cfg.snapToGrid" style="flex:1">Snap to Grid</mat-checkbox>
+                    <mat-checkbox [(ngModel)]="cfg.snapToGrid" style="flex:1">Kaitkan ke kisi</mat-checkbox>
                     <div class="input-block" style="flex:1"
-                        matTooltip="Number of decimals to keep when a point is dragged"
+                        matTooltip="Jumlah desimal saat titik digeser"
                         matTooltipPosition="right"
                         [matTooltipDisabled]="cfg.snapToGrid"
                         [ngClass]="{'disabled': cfg.snapToGrid }"
                     >
-                        <label>Point Precision</label>
+                        <label>Presisi titik</label>
                         <input
                             class="app-input"
                             appFormatter
@@ -129,11 +129,11 @@
                     </div>
                 </div>
                 <div class="row">
-                    <mat-checkbox [(ngModel)]="cfg.showTicks" style="flex:1">Show Ticks</mat-checkbox>
+                    <mat-checkbox [(ngModel)]="cfg.showTicks" style="flex:1">Tampilkan penanda</mat-checkbox>
                     <div class="input-block" style="flex:1"
                         [ngClass]="{'disabled': !cfg.showTicks }"
                     >
-                        <label>Interval</label>
+                        <label>Selang</label>
                         <input
                             class="app-input"
                             appFormatter
@@ -143,122 +143,121 @@
                     </div>
                 </div>
                 <div class="row">
-                    <mat-checkbox [(ngModel)]="cfg.filled" style="flex:1">Fill</mat-checkbox>
-                    <mat-checkbox [(ngModel)]="cfg.preview" style="flex:1">Preview</mat-checkbox>
-                    <mat-checkbox [ngModel]="cfg.minifyOutput" (ngModelChange)="cfg.minifyOutput=$event;afterModelChange()" style="flex:1">Minify output</mat-checkbox>
+                    <mat-checkbox [(ngModel)]="cfg.filled" style="flex:1">Isi</mat-checkbox>
+                    <mat-checkbox [ngModel]="cfg.minifyOutput" (ngModelChange)="cfg.minifyOutput=$event;afterModelChange()" style="flex:1">Ringkas output</mat-checkbox>
                 </div>
 
             </app-expandable>
 
-            <app-expandable panelTitle="Path Operations" [opened]="true">
+            <app-expandable panelTitle="Operasi path" [opened]="true">
                 <div class="row path-operations-grid">
                     <div class="input-block" style="flex:1">
-                        <label>Scale X</label>
+                        <label>Skala X</label>
                         <input appFormatter [(numberValue)]="scaleX" class="app-input" >
                     </div>
                     <div class="input-block" style="flex:1">
-                        <label>Scale Y</label>
+                        <label>Skala Y</label>
                         <input appFormatter [(numberValue)]="scaleY" class="app-input">
                     </div>
                     <button
                         mat-flat-button
                         (click)="scale(scaleX, scaleY)"
                         style="flex:1"
-                        matTooltip="Scale the full path with provided values"
+                        matTooltip="Skalakan seluruh path sesuai nilai"
                         matTooltipPosition="right"
                         class="mat-flat-button"
-                    >Scale</button>
+                    >Skala</button>
                 </div>
 
                 <div class="row path-operations-grid">
                     <div class="input-block" style="flex:1">
-                        <label>Translate X</label>
+                        <label>Geser X</label>
                         <input appFormatter [(numberValue)]="translateX" class="app-input">
                     </div>
                     <div class="input-block" style="flex:1">
-                        <label>Translate Y</label>
+                        <label>Geser Y</label>
                         <input appFormatter [(numberValue)]="translateY" class="app-input">
                     </div>
                     <button
                         mat-flat-button
                         (click)="translate(translateX, translateY)"
                         style="flex:1"
-                        matTooltip="Translate the full path with provided values"
+                        matTooltip="Geser seluruh path sesuai nilai"
                         matTooltipPosition="right"
                         class="mat-flat-button"
-                    >Translate</button>
+                    >Geser</button>
                 </div>
 
                 <div class="row path-operations-grid4">
                     <div class="input-block" style="flex:1">
-                        <label>Origin X</label>
+                        <label>Titik asal X</label>
                         <input appFormatter [(numberValue)]="rotateX" class="app-input">
                     </div>
                     <div class="input-block" style="flex:1">
-                        <label>Origin Y</label>
+                        <label>Titik asal Y</label>
                         <input appFormatter [(numberValue)]="rotateY" class="app-input">
                     </div>
                     <div class="input-block" style="flex:1">
-                        <label>Angle</label>
+                        <label>Sudut</label>
                         <input appFormatter suffix="°" [(numberValue)]="rotateAngle" class="app-input">
                     </div>
                     <button
                         mat-flat-button
                         (click)="rotate(rotateX, rotateY, rotateAngle)"
                         style="flex:1"
-                        matTooltip="Rotate the full path by the given angle in degrees about the given point"
+                        matTooltip="Rotasi seluruh path berdasarkan sudut (derajat) dari titik yang ditentukan"
                         matTooltipPosition="right"
                         class="mat-flat-button"
-                    >Rotate</button>
+                    >Rotasi</button>
                 </div>
 
                 <div class="row path-operations-grid">
                     <div class="input-block" style="grid-column: span 2;">
-                        <label>Number of decimals</label>
+                        <label>Jumlah desimal</label>
                         <input appFormatter formatterType="positive-integer" [(numberValue)]="roundValuesDecimals" class="app-input">
                     </div>
                     <button
                         mat-flat-button
                         (click)="roundValues(roundValuesDecimals)"
                         style="flex:1"
-                        matTooltip="Round all values, input the number of decimals to keep"
+                        matTooltip="Bulatkan semua nilai sesuai jumlah desimal"
                         matTooltipPosition="right"
                         class="mat-flat-button"
-                    >Round</button>
+                    >Bulatkan</button>
                 </div>
 
                 <div class="row">
                     <button mat-flat-button
                         (click)="setRelative(true)"
-                        matTooltip="Convert all commands to relative"
+                        matTooltip="Ubah semua perintah menjadi relatif"
                         style="flex:1"
                         class="mat-flat-button"
-                    >Convert to relative</button>
+                    >Ubah ke relatif</button>
                     <button mat-flat-button
                         (click)="setRelative(false)"
-                        matTooltip="Convert all commands to absolute"
+                        matTooltip="Ubah semua perintah menjadi absolut"
                         style="flex:1"
                         class="mat-flat-button"
-                    >Convert to absolute</button>
+                    >Ubah ke absolut</button>
                 </div>
                 <div class="row">
                     <button mat-flat-button
                         (click)="reverse()"
-                        matTooltip="Reverse path commands"
+                        matTooltip="Balikkan urutan perintah path"
                         style="flex:1"
                         class="mat-flat-button"
-                    >Reverse</button>
+                    >Balikkan</button>
                     <button mat-flat-button
                         (click)="optimize()"
-                        matTooltip="Optimize the path by removing useless components, changing types and reordering"
+                        matTooltip="Optimalkan path dengan menghapus komponen yang tidak diperlukan, ubah tipe, dan atur ulang urutan"
                         style="flex:1"
                         class="mat-flat-button"
-                    >Optimize</button>
+                    >Optimalkan</button>
                 </div>
             </app-expandable>
 
 
-            <app-expandable panelTitle="Commands" [opened]="true">
+            <app-expandable panelTitle="Perintah" [opened]="true">
                 <div *ngFor="let item of parsedPath.path; let j=index"
                     (mouseenter)="hoveredItem=item"
                     (mouseleave)="hoveredItem=null"
@@ -303,7 +302,7 @@
 
                     <div style="flex:1"></div>
                     <button mat-icon-button [matMenuTriggerFor]="appMenu" [matMenuTriggerData]="{item:item, idx:j}" class="more-button">
-                        <mat-icon svgIcon="more"></mat-icon>
+                        <mat-icon class="material-symbols-rounded">more_horiz</mat-icon>
                     </button>
                 </div>
             </app-expandable>
@@ -315,7 +314,7 @@
         <button mat-raised-button class="left-column-open" *ngIf="!isLeftPanelOpened"
         (click)="toggleLeftPanel()"
         >
-            <mat-icon>arrow_right</mat-icon>
+            <mat-icon class="material-symbols-rounded">arrow_right</mat-icon>
         </button>
         <button mat-mini-fab *ngIf="((!draggedPoint && focusedItem) || parsedPath.path.length===0) && !(cfg.preview || isEditingImages)"
             color="accent"
@@ -330,8 +329,8 @@
             (menuOpened)="isContextualMenuOpened = true"
             (menuClosed)="isContextualMenuOpened = false"
         >
-            <mat-icon svgIcon="more" *ngIf="focusedItem"></mat-icon>
-            <mat-icon *ngIf="!focusedItem">add</mat-icon>
+            <mat-icon class="material-symbols-rounded" *ngIf="focusedItem">more_horiz</mat-icon>
+            <mat-icon class="material-symbols-rounded" *ngIf="!focusedItem">add</mat-icon>
         </button>
 
         <label class="cursor-position" *ngIf="cursorPosition" >
@@ -357,27 +356,36 @@
             (menuOpened)="isContextualMenuOpened = true"
             (menuClosed)="isContextualMenuOpened = false"
         >
-            <mat-icon svgIcon="more"></mat-icon>
+            <mat-icon class="material-symbols-rounded">more_horiz</mat-icon>
         </button>
 
         <div class="scene-top-actions">
             <button mat-mini-fab
                 color="primary"
-                matTooltip="Undo"
+                matTooltip="Urung"
                 matTooltipPosition="below"
                 (click)="undo()"
                 [disabled]="!canUndo()"
             >
-                <mat-icon>undo</mat-icon>
+                <mat-icon class="material-symbols-rounded">undo</mat-icon>
             </button>
             <button mat-mini-fab
                 color="primary"
-                matTooltip="Redo"
+                matTooltip="Ulang"
                 matTooltipPosition="below"
                 (click)="redo()"
                 [disabled]="!canRedo()"
             >
-                <mat-icon>redo</mat-icon>
+                <mat-icon class="material-symbols-rounded">redo</mat-icon>
+            </button>
+
+            <button mat-mini-fab
+                color="primary"
+                matTooltip="Pratinjau"
+                matTooltipPosition="below"
+                (click)="cfg.preview = !cfg.preview"
+            >
+                <mat-icon class="material-symbols-rounded"> {{ cfg.preview ? 'image' : 'hide_image' }}</mat-icon>
             </button>
 
             <app-upload-image
@@ -390,12 +398,12 @@
 
             <button mat-mini-fab
                 [color]="isEditingImages ? 'accent' : 'primary'"
-                [matTooltip]="isEditingImages ? '' : 'Toggle image management mode'"
+                [matTooltip]="isEditingImages ? '' : 'Beralih ke mode pengelolaan gambar'"
                 matTooltipPosition="below"
-                style="margin-right: 24px;margin-left: 24px"
+                style="margin-right: 8px"
                 (click)="toggleImageEditing(uploader)"
             >
-                <mat-icon>image</mat-icon>
+                <mat-icon class="material-symbols-rounded">add_photo_alternate</mat-icon>
             </button>
 
             <app-export [path]="rawPath" [name]="pathName || '' " style="margin-right: 8px"></app-export>
@@ -406,38 +414,37 @@
                 mat-mini-fab
                 color="primary"
                 (click)="cfg.snapToGrid = !cfg.snapToGrid"
-                matTooltip="Snap to Grid"
+                matTooltip="Kaitkan ke kisi"
                 matTooltipPosition="left"
             >
-                <mat-icon> {{ cfg.snapToGrid ? 'grid_on' : 'grid_off' }}</mat-icon>
+                <mat-icon class="material-symbols-rounded"> {{ cfg.snapToGrid ? 'grid_on' : 'grid_off' }}</mat-icon>
             </button>
             <button
                 mat-mini-fab
                 color="primary"
                 (click)="cfg.viewPortLocked=false;canvas?.zoomViewPort(9/10)"
-                matTooltip="Zoom In"
-                matTooltipPosition="left"
-                style="margin-top: 24px"
-            >
-                <mat-icon svgIcon="zoom_in"></mat-icon>
-            </button>
-            <button
-                mat-mini-fab
-                color="primary"
-                (click)="cfg.viewPortLocked=false;zoomAuto()"
-                matTooltip="Zoom to Fit"
+                matTooltip="Perbesar"
                 matTooltipPosition="left"
             >
-                <mat-icon svgIcon="zoom_fit"></mat-icon>
+                <mat-icon class="material-symbols-rounded">zoom_in</mat-icon>
             </button>
             <button
                 mat-mini-fab
                 color="primary"
                 (click)="cfg.viewPortLocked=false;canvas?.zoomViewPort(10/9)"
-                matTooltip="Zoom Out"
+                matTooltip="Perkecil"
                 matTooltipPosition="left"
             >
-                <mat-icon svgIcon="zoom_out"></mat-icon>
+                <mat-icon class="material-symbols-rounded">zoom_out</mat-icon>
+            </button>
+            <button
+                mat-mini-fab
+                color="primary"
+                (click)="cfg.viewPortLocked=false;zoomAuto()"
+                matTooltip="Sesuaikan ke Layar"
+                matTooltipPosition="left"
+            >
+                <mat-icon class="material-symbols-rounded">fit_screen</mat-icon>
             </button>
         </div>
 
@@ -484,7 +491,7 @@
 
 
 <div *ngIf="isLeftPanelOpened"  class="footer">
-    <a href="https://github.com/Yqnn/svg-path-editor" target="_blank">
+    <a href="https://github.com/mcikadu-dev/svg-path-editor" target="_blank">
         <mat-icon svgIcon="github"></mat-icon> GitHub
     </a>
     <a href="https://github.com/sponsors/Yqnn" target="_blank">
@@ -497,32 +504,32 @@
 <mat-menu #appMenu="matMenu"  xPosition="before">
     <ng-template matMenuContent let-item="item"  let-idx="idx">
         <button mat-menu-item [matMenuTriggerFor]="appCreate" [matMenuTriggerData]="{item:item, idx:idx}">
-            <mat-icon>add</mat-icon>
-            Insert After
+            <mat-icon class="material-symbols-rounded">add</mat-icon>
+            Sisipkan setelah
         </button>
         <button mat-menu-item [matMenuTriggerFor]="appCreate" [matMenuTriggerData]="{item:item, idx:idx, convert:true}">
-            <mat-icon>autorenew</mat-icon>
-            Convert To
+            <mat-icon class="material-symbols-rounded">autorenew</mat-icon>
+            Ubah ke
         </button>
         <button mat-menu-item (click)="item.setRelative(!item.relative); afterModelChange();">
-            <mat-icon>autorenew</mat-icon>
-            <ng-container *ngIf="item.relative">Set Absolute</ng-container>
-            <ng-container *ngIf="!item.relative">Set Relative</ng-container>
+            <mat-icon class="material-symbols-rounded">autorenew</mat-icon>
+            <ng-container *ngIf="item.relative">Jadikan absolut</ng-container>
+            <ng-container *ngIf="!item.relative">Jadikan relatif</ng-container>
         </button>
         <button mat-menu-item (click)="useAsOrigin(item)" [disabled]="!canUseAsOrigin(item)">
-            <mat-icon>vertical_align_top</mat-icon>
-            Start Path From Here
+            <mat-icon class="material-symbols-rounded">vertical_align_top</mat-icon>
+            Mulai path dari sini
         </button>
         <button mat-menu-item (click)="useAsOrigin(item, true)" [disabled]="!canUseAsOrigin(item) || !hasSubPaths()">
-            <mat-icon>vertical_align_top</mat-icon>
-            Start Subpath From Here
+            <mat-icon class="material-symbols-rounded">vertical_align_top</mat-icon>
+            Mulai subpath dari sini
         </button>
         <button mat-menu-item (click)="reverseSubPath(item)" [disabled]="!hasSubPaths()">
-            <mat-icon>swap_vert</mat-icon>
-            Reverse Subpath
+            <mat-icon class="material-symbols-rounded">swap_vert</mat-icon>
+            Balikkan subpath
         </button>
         <button mat-menu-item (click)="delete(item)" [disabled]="!canDelete(item)">
-            <mat-icon>delete</mat-icon> Delete
+            <mat-icon class="material-symbols-rounded">delete</mat-icon> Hapus
         </button>
     </ng-template>
 </mat-menu>
@@ -530,16 +537,16 @@
 
 <mat-menu #appCreate="matMenu">
     <ng-template matMenuContent let-item="item"  let-idx="idx" let-convert="convert">
-        <button mat-menu-item (click)="insert('M', item, convert)" [disabled]="convert?!canConvert(item,'M'):!canInsertAfter(item, 'M')"><strong>M</strong> Move to</button>
-        <button mat-menu-item (click)="insert('L', item, convert)" [disabled]="convert?!canConvert(item,'L'):!canInsertAfter(item, 'L')"><strong>L</strong> Line to</button>
-        <button mat-menu-item (click)="insert('V', item, convert)" [disabled]="convert?!canConvert(item,'V'):!canInsertAfter(item, 'V')"><strong>V</strong> Vertical Line to</button>
-        <button mat-menu-item (click)="insert('H', item, convert)" [disabled]="convert?!canConvert(item,'H'):!canInsertAfter(item, 'H')"><strong>H</strong> Horizontal Line to</button>
-        <button mat-menu-item (click)="insert('C', item, convert)" [disabled]="convert?!canConvert(item,'C'):!canInsertAfter(item, 'C')"><strong>C</strong> Curve to</button>
-        <button mat-menu-item (click)="insert('S', item, convert)" [disabled]="convert?!canConvert(item,'S'):!canInsertAfter(item, 'S')"><strong>S</strong> Shorthand Curve to</button>
-        <button mat-menu-item (click)="insert('Q', item, convert)" [disabled]="convert?!canConvert(item,'Q'):!canInsertAfter(item, 'Q')"><strong>Q</strong> Quadratic Bezier Curve to</button>
-        <button mat-menu-item (click)="insert('T', item, convert)" [disabled]="convert?!canConvert(item,'T'):!canInsertAfter(item, 'T')"><strong>T</strong> Shorthand Quadratic Bezier Curve to</button>
-        <button mat-menu-item (click)="insert('A', item, convert)" [disabled]="convert?!canConvert(item,'A'):!canInsertAfter(item, 'A')"><strong>A</strong> Elliptical Arc</button>
-        <button mat-menu-item (click)="insert('Z', item, convert)" [disabled]="convert?!canConvert(item,'Z'):!canInsertAfter(item, 'Z')"><strong>Z</strong> Close Path</button>
+        <button mat-menu-item (click)="insert('M', item, convert)" [disabled]="convert?!canConvert(item,'M'):!canInsertAfter(item, 'M')"><strong>M</strong> Pindah ke</button>
+        <button mat-menu-item (click)="insert('L', item, convert)" [disabled]="convert?!canConvert(item,'L'):!canInsertAfter(item, 'L')"><strong>L</strong> Garis ke</button>
+        <button mat-menu-item (click)="insert('V', item, convert)" [disabled]="convert?!canConvert(item,'V'):!canInsertAfter(item, 'V')"><strong>V</strong> Garis vertikal ke</button>
+        <button mat-menu-item (click)="insert('H', item, convert)" [disabled]="convert?!canConvert(item,'H'):!canInsertAfter(item, 'H')"><strong>H</strong> Garis horizontal ke</button>
+        <button mat-menu-item (click)="insert('C', item, convert)" [disabled]="convert?!canConvert(item,'C'):!canInsertAfter(item, 'C')"><strong>C</strong> Kurva ke</button>
+        <button mat-menu-item (click)="insert('S', item, convert)" [disabled]="convert?!canConvert(item,'S'):!canInsertAfter(item, 'S')"><strong>S</strong> Kurva singkat ke</button>
+        <button mat-menu-item (click)="insert('Q', item, convert)" [disabled]="convert?!canConvert(item,'Q'):!canInsertAfter(item, 'Q')"><strong>Q</strong> Kurva bezier kuadratik ke</button>
+        <button mat-menu-item (click)="insert('T', item, convert)" [disabled]="convert?!canConvert(item,'T'):!canInsertAfter(item, 'T')"><strong>T</strong> Kurva bezier kuadratik singkat ke</button>
+        <button mat-menu-item (click)="insert('A', item, convert)" [disabled]="convert?!canConvert(item,'A'):!canInsertAfter(item, 'A')"><strong>A</strong> Busur elips</button>
+        <button mat-menu-item (click)="insert('Z', item, convert)" [disabled]="convert?!canConvert(item,'Z'):!canInsertAfter(item, 'Z')"><strong>Z</strong> Tutup path</button>
     </ng-template>
 </mat-menu>
 
@@ -547,8 +554,8 @@
 <mat-menu #appImage="matMenu">
     <ng-template matMenuContent let-image="image">
         <div mat-menu-item [disableRipple]="true" (click)="$event.stopPropagation()">
-            <mat-icon>opacity</mat-icon>
-            <ng-container>Opacity</ng-container>
+            <mat-icon class="material-symbols-rounded">opacity</mat-icon>
+            <ng-container>Pengaburan</ng-container>
             <div style="display:inline-block; width:180px;">
                 <mat-slider min="0" max="1" step="0.01" style="margin:0 16px; min-width:100px" color="accent">
                     <input matSliderThumb [(ngModel)]="image.opacity">
@@ -557,11 +564,11 @@
             </div>
         </div>
         <button mat-menu-item (click)="image.preserveAspectRatio = !image.preserveAspectRatio; $event.stopPropagation()">
-            <mat-icon>aspect_ratio</mat-icon>
-            <ng-container>Toggle Preserve Aspect Ratio</ng-container>
+            <mat-icon class="material-symbols-rounded">aspect_ratio</mat-icon>
+            <ng-container>Pertahankan rasio aspek</ng-container>
         </button>
         <button mat-menu-item (click)="deleteImage(image)">
-            <mat-icon>delete</mat-icon> Delete
+            <mat-icon class="material-symbols-rounded">delete</mat-icon> Hapus
         </button>
     </ng-template>
 </mat-menu>

@@ -40,10 +40,10 @@ export class ConfigService {
   @save() viewPortLocked = false;
   @save() filled = true;
   @save() preview = false;
-  @save() showTicks = false;
+  @save() showTicks = true;
   @save() minifyOutput = false;
   @save() snapToGrid = true;
-  @save() tickInterval = 5;
+  @save() tickInterval = 1;
   @save() decimalPrecision = 3;
 }
 

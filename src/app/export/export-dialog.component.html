@@ -1,16 +1,16 @@
-<h1 mat-dialog-title>Export as SVG</h1>
+<h1 mat-dialog-title>Ekspor sebagai SVG</h1>
 <div mat-dialog-content>
   <div class="export-content">
     <div class="export-form">
       <div class="style-form-title">
-        Style
+        Gaya
       </div>
       <div class="style-form-fill">
         <div>
-          <mat-checkbox class="example-margin" [ngModel]="cfg.fill" (ngModelChange)="cfg.fill=$event;cfg.stroke=cfg.stroke||!$event">Fill</mat-checkbox>
+          <mat-checkbox class="example-margin" [ngModel]="cfg.fill" (ngModelChange)="cfg.fill=$event;cfg.stroke=cfg.stroke||!$event">Isi</mat-checkbox>
         </div>
         <mat-form-field>
-          <mat-label>Fill Color</mat-label>
+          <mat-label>Warna isi</mat-label>
           <input matInput [(ngModel)]="cfg.fillColor" [disabled]="!cfg.fill">
         </mat-form-field>
       </div>
@@ -21,13 +21,13 @@
         <div class="style-form-stroke-fields">
           <div class="style-form-stroke-field">
             <mat-form-field>
-              <mat-label>Stroke Color</mat-label>
+              <mat-label>Warna stroke</mat-label>
               <input matInput [(ngModel)]="cfg.strokeColor" [disabled]="!cfg.stroke">
             </mat-form-field>
           </div>
           <div class="style-form-stroke-field">
             <mat-form-field>
-              <mat-label>Stroke width</mat-label>
+              <mat-label>Lebar stroke</mat-label>
               <input matInput [(ngModel)]="cfg.strokeWidth" [disabled]="!cfg.stroke">
             </mat-form-field>
           </div>
@@ -35,7 +35,7 @@
       </div>
       <div class="viewbox-form-title">
         <div>ViewBox</div>
-        <button mat-flat-button (click)="refreshViewbox()" color="basic" class="reset-button">Reset</button>
+        <button mat-flat-button (click)="refreshViewbox()" color="basic" class="reset-button">Ulang</button>
       </div>
       <div class="viewbox-form-field">
         <mat-form-field>
@@ -51,13 +51,13 @@
       </div>
       <div class="viewbox-form-field">
         <mat-form-field>
-          <mat-label>Width</mat-label>
+          <mat-label>Lebar</mat-label>
           <input matInput appFormatter formatterType="positive-float" [(numberValue)]="width">
         </mat-form-field>
       </div>
       <div class="viewbox-form-field">
         <mat-form-field>
-          <mat-label>Height</mat-label>
+          <mat-label>Tinggi</mat-label>
           <input matInput appFormatter formatterType="positive-float" [(numberValue)]="height">
         </mat-form-field>
       </div>
@@ -78,11 +78,11 @@
   </div>
 </div>
 <div mat-dialog-actions align="end">
-  <button mat-raised-button (click)="onCancel()" color="primary">Cancel</button>
+  <button mat-raised-button (click)="onCancel()" color="primary">Batal</button>
   <button mat-raised-button (click)="onCopyToClipboard()" color="primary">
-    Copy to clipboard
+    Salin ke papan klip
   </button>
   <button mat-raised-button (click)="onExport()" color="accent" [disabled]="false">
-    Download
+    Unduh
   </button>
 </div>

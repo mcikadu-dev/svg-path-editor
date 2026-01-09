@@ -1,8 +1,8 @@
 # Svg-path-editor-lib
 
-The library powering the [SvgPathEditor app](https://yqnn.github.io/svg-path-editor/).
+Library yang menjadi inti dari aplikasi [SvgPathEditor app](https://mcikadu-dev.github.io/svg-path-editor/).
 
-## Usage
+## Penggunaan
 
 
 ### Parse path
@@ -10,11 +10,11 @@ The library powering the [SvgPathEditor app](https://yqnn.github.io/svg-path-edi
 ```typescript
 import { SvgPath } from 'svg-path-editor-lib';
 
-// Throw an error if path is invalid
+// Akan melempar error jika path tidak valid
 const parsedPath = new SvgPath(path);
 ```
 
-### Generate path
+### Menghasilkan path
 
 ```typescript
 parsedPath.asString(
@@ -23,48 +23,48 @@ parsedPath.asString(
 )
 ```
 
-### Global operations
+### Operasi global
 
-All operations are performed in place.
+Semua operasi dilakukan langsung pada objek (in place).
 
-Scale:
+Skala:
 ```typescript
 parsedPath.scale(x, y);
 ```
 
-Translate:
+Geser:
 ```typescript
 parsedPath.translate(x, y);
 ```
 
-Rotate:
+Rotasi:
 ```typescript
 parsedPath.rotate(x, y, angle);
 ```
 
-Convert to relative:
+Ubah ke relatif:
 ```typescript
 parsedPath.setRelative(true);
 ```
 
-Convert to absolute:
+Ubah ke absolut:
 ```typescript
 parsedPath.setRelative(false);
 ```
 
-Reverse:
+Balikkan urutan perintah path:
 ```typescript
 import { reversePath } from 'svg-path-editor-lib';
 reversePath(parsedPath);
 ```
 
-Change origin:
+Ubah titik asal:
 ```typescript
 import { changePathOrigin } from 'svg-path-editor-lib';
 changePathOrigin(parsedPath, indexOfNewOrigin);
 ```
 
-Advanced optimizations:
+Pengoptimal lanjutan:
 ```typescript
 import { optimizePath } from 'svg-path-editor-lib';
 optimizePath(parsedPath, {
@@ -73,49 +73,49 @@ optimizePath(parsedPath, {
   useHorizontalAndVerticalLines, // default `false`
   useRelativeAbsolute,           // default `false`
   useReverse,                    // default `false`
-  removeOrphanDots,              // default `false`, may be destructive for stroked paths
-  useClosePath,                  // default `false`, may be destructive for stroked paths
+  removeOrphanDots,              // default `false`, bisa merusak path dengan stroke
+  useClosePath,                  // default `false`, bisa merusak path dengan stroke
 });
 ```
 
 
-### Local operations
+### Operasi lokal
 
-Use `parsedPath.path` to get an array of all path items.
+Gunakan `parsedPath.path` untuk mendapatkan array dari semua item path.
 ```typescript
 const item = parsedPath.path[0];
 ```
 
-Insert after:
+Sisipkan setelah:
 ```typescript
-// Insert a the end:
+// Sisipkan di akhir:
 parsedPath.insert(SvgItem.Make(['M', '1', '1']));
-// Insert after `item`:
+// Sisipkan setelah `item`:
 parsedPath.insert(SvgItem.Make(['M', '1', '1']), item);
 ```
 
-Modify item:
+Ubah item:
 ```typescript
 item.values[index] = val;
 parsedPath.refreshAbsolutePositions();
 ```
 
-Convert to relative:
+Ubah ke relatif:
 ```typescript
 item.setRelative(true);
 ```
 
-Convert to absolute:
+Ubah ke absolut:
 ```typescript
 item.setRelative(false);
 ```
 
-Convert to another type:
+Ubah ke tipe lain:
 ```typescript
 parsedPath.changeType(item, 'L');
 ```
 
-Remove item:
+Hapus item:
 ```typescript
 parsedPath.delete(item);
 ```
